@@ -78,10 +78,8 @@ print(tabelaTamanho.head())
 st.sidebar.subheader("SELECIONAR O TIPO DE GRAFICO")
 tipoGrafico = st.sidebar.selectbox(
     "SELECIONAR O TIPO DE GRAFICO PARA `QUANTIDADE POR TAMANHO`:",
-    options=['GRAFICO DE BARRAS' , 'GRAFICO DE PIZZA']
+    options=['GRAFICO DE BARRAS' , 'GRAFICO DE PIZZA'],key='POR TAMANHO')
 
-
-)
 if tipoGrafico == 'GRAFICO DE PIZZA':
     TabelaTamanhoGrafico = px.pie(
         tabelaTamanho,
@@ -89,12 +87,12 @@ if tipoGrafico == 'GRAFICO DE PIZZA':
         values='Quantidade',
         labels={'Tamanho': 'Tamanho' },
         title='QUANTIDADE POR TAMANHO NO GRAFICO DE PIZZA'
-    )
+)
 elif tipoGrafico == 'GRAFICO DE BARRAS':
     TabelaTamanhoGrafico = px.bar(
         tabelaTamanho,
-        names = 'Tamanho',
-        values='Quantidade',
+        x = 'Tamanho',
+        y='Quantidade',
         labels={'Tamanho': 'Tamanho', 'Quantidade': 'Quantidade' },
         title='QUANTIDADE POR TAMANHO NO GRAFICO DE PIZZA'
     )
@@ -105,7 +103,7 @@ elif tipoGrafico == 'GRAFICO DE BARRAS':
 st.sidebar.subheader("SELECIONAR O TIPO DE GRAFICO")
 tipoGrafico = st.sidebar.selectbox(
     "SELECIONAR O TIPO DE GRAFICO PARA `QUANTIDADE POR COR`:",
-    options=['GRAFICO DE BARRAS' , 'GRAFICO DE PIZZA'])
+    options=['GRAFICO DE BARRAS' , 'GRAFICO DE PIZZA'],key='Por cor')
 
 if tipoGrafico == 'GRAFICO DE BARRAS':
     TabelaCorGrafico = px.bar(
