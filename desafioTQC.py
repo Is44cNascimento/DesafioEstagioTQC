@@ -67,7 +67,7 @@ tabelaCor = ControleVendasPagamentos.groupby('Cor').agg({'Quantidade':'sum'}).re
 print(tabelaCor.head())
 
 tabelaTamanho = ControleVendasPagamentos.groupby('Tamanho').agg({ 'Quantidade':'sum'}).reset_index()
-st.subheader("Quantidade por cor")
+
 print(tabelaTamanho.head())
 
 
@@ -75,7 +75,7 @@ print(tabelaTamanho.head())
 
 
 
-st.sidebar.subheader("SELECIONAR O TIPO DE GRAFICO")
+st.sidebar.subheader("SELECIONAR O TIPO DE GRAFICO PARA TAMANHO")
 tipoGrafico = st.sidebar.selectbox(
     "SELECIONAR O TIPO DE GRAFICO PARA `QUANTIDADE POR TAMANHO`:",
     options=['GRAFICO DE BARRAS' , 'GRAFICO DE PIZZA'],key='POR TAMANHO')
@@ -83,7 +83,7 @@ tipoGrafico = st.sidebar.selectbox(
 if tipoGrafico == 'GRAFICO DE PIZZA':
     TabelaTamanhoGrafico = px.pie(
         tabelaTamanho,
-        names = 'Tamanho',
+        names='Tamanho',
         values='Quantidade',
         labels={'Tamanho': 'Tamanho' },
         title='QUANTIDADE POR TAMANHO NO GRAFICO DE PIZZA'
@@ -91,13 +91,13 @@ if tipoGrafico == 'GRAFICO DE PIZZA':
 elif tipoGrafico == 'GRAFICO DE BARRAS':
     TabelaTamanhoGrafico = px.bar(
         tabelaTamanho,
-        x = 'Tamanho',
+        x='Tamanho',
         y='Quantidade',
         labels={'Tamanho': 'Tamanho', 'Quantidade': 'Quantidade' },
         title='QUANTIDADE POR TAMANHO NO GRAFICO DE PIZZA'
     )
 
-    st.plotly_chart(TabelaTamanhoGrafico)
+st.plotly_chart(TabelaTamanhoGrafico)
 
 
 st.sidebar.subheader("SELECIONAR O TIPO DE GRAFICO")
