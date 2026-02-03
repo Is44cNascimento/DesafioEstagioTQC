@@ -70,10 +70,38 @@ tabelaTamanho = ControleVendasPagamentos.groupby('Tamanho').agg({ 'Quantidade':'
 
 print(tabelaTamanho.head())
 
+totalValorPago = ControleVendasPagamentos['ValorPago'].sum()
+totalValorPendente = ControleVendasPagamentos['Valor Pendente'].sum()
+
+st.metric(label="Total De Valor Pago", value=f"R$ {totalValorPago:.2f}")
+st.metric(label="Total De Valor PEndente", value=f"R$ {totalValorPendente:.2f}")
+
+tabelaValorPago = ControleVendasPagamentos.groupby('Cliente').agg({'ValorPago': 'sum'}).reset_index()
+tabelaValorPendente = ControleVendasPagamentos.groupby('Cliente').agg({'Valor Pendente': 'sum'}).reset_index()
+
+st.subheader("Grafico de valor pago ou pendente")
+
+graficoValorPago = px.bar(
+    tabelaValorPago,
+    x='Cliente',
+    y='ValorPago',
+    labels={'Clientes': 'Clientes','ValorPago': 'ValorPago (R$)' },
+    title='Grafico de valor pago por cliente',
+    text_auto= True
+)
+
+graficoValorPendente = px.bar(
+    tabelaValorPendente,
+    x='Cliente',
+    y='Valor Pendente',
+    labels={'Clientes': 'Clientes','Valor Pendente': 'Valor Pendente (R$)' },
+    title='Grafico de valor pendente por cliente',
+    text_auto= True
+)
 
 
-
-
+st.plotly_chart(graficoValorPago)
+st.plotly_chart(graficoValorPendente)
 
 st.sidebar.subheader("SELECIONAR O TIPO DE GRAFICO PARA TAMANHO")
 tipoGrafico = st.sidebar.selectbox(
